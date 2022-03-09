@@ -20,11 +20,18 @@ while(True):
     mask = cv2.inRange(hsv,lower_red,upper_red)
     res =cv2.bitwise_and(frame,frame, mask=mask)
 
+    # median filter - zbavuje sa sumu a vyhladzuje prednaska 4.
+    median = cv2.medianBlur(frame,7)
+
+    edgesmed = cv2.Canny(median,100,100)
+
     # Display the resulting frame
     cv2.imshow('The_Input_Frame',frame)
     cv2.imshow('edges', edges)
+    cv2.imshow('edgesMED', edgesmed)
     cv2.imshow('Mask', mask)
     cv2.imshow('Res', res)
+    cv2.imshow('Median', median)
       
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
